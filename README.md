@@ -44,3 +44,7 @@ secret、token、password、接続文字列、private URL、個人情報、raw p
 ## Repository defaults
 
 `kohei321dev`配下では、Issue Form、Pull Requestテンプレート、Contribution、Security、Support方針をPublicリポジトリ`kohei321dev/.github`から継承します。リポジトリ固有の例外が必要な場合だけ、ローカルの`.github/ISSUE_TEMPLATE/`またはPull Requestテンプレートを追加します。
+
+## Existing repository migration
+
+既存リポジトリ内に散在する文書をこの標準構成へ移す場合は、[`prompts/repository-docs-migration.md`](prompts/repository-docs-migration.md)を使用します。最初にread-onlyの`PLAN`を実行し、人間が移行台帳とIssueを承認した後にだけ`IMPLEMENT`へ進みます。
