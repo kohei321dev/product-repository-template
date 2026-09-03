@@ -93,8 +93,8 @@ foreach ($file in $decisionFiles) {
     }
 
     $content = Get-Content -LiteralPath $file.FullName -Raw
-    if ($content -notmatch "(?m)^# DR-${id}: .+") {
-        $errors.Add("Decision title must start with '# DR-${id}:': docs/decisions/$($file.Name)")
+    if ($content -notmatch "(?m)^# (?:DR-|ADR[- ])${id}: .+") {
+        $errors.Add("Decision title must use DR-${id}, ADR-${id}, or ADR ${id}: docs/decisions/$($file.Name)")
     }
 
     foreach ($field in $requiredDecisionFields) {
