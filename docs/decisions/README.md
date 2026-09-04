@@ -20,6 +20,8 @@
 - Title: `DR-0001: Title`
 - Status: `Proposed` / `Accepted` / `Superseded` / `Deprecated` / `Rejected`
 
+新規記録には`DR-0001`を使用します。既存リポジトリから移行するArchitecture Decision Recordは、参照互換性を保つため`ADR-0001`または`ADR 0001`のタイトルを維持して構いません。ID、status、date、判断内容を変更せず、不足する追跡metadataだけを補います。
+
 判断を上書きして履歴を消しません。責務や最終目標が変わる場合は新しいDecision Recordを作り、旧記録を`Superseded`にします。
 
 ## Index
