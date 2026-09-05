@@ -29,7 +29,7 @@
 
 - GitHub共通設定:
   - Repository: https://github.com/kohei321dev/.github
-  - Commit: 9742d986403e69170a49aaa6e3610a984850d574
+  - Commit: 9e1b4155c2f9263bb118761732499aa97b51a66d
 - プロダクトリポジトリ標準:
   - Repository: https://github.com/kohei321dev/product-repository-template
   - Commit: f21ae98b845d5716d8d9b7d2296e5b4110455a6d
@@ -110,6 +110,8 @@ docs/
 - 対象リポジトリにローカル版がある場合は、意図的な上書きか、古い重複かを調査する。
 - プロダクト固有の入力項目や運用が必要なら、理由を移行Issueに記載し、人間の承認を得るまで削除・置換しない。
 - 共通既定値が適用される条件を満たすか確認し、確認できない場合はその事実を報告する。
+- 推奨するIssue本文を作る前に、固定Commitの`.github/ISSUE_TEMPLATE/change.yml`を最後まで読み、`label`、必須値、確認checkboxへIssue本文を一対一で対応させる。
+- Issue Formにない詳細も失わない。移行台帳、対象範囲、対象外、受け入れ条件、検証方法、文書影響、Decision Record要否、依存関係、実装開始条件は、対応するtextarea内の小見出しとして含める。
 
 ## 値がない項目の書き方
 
@@ -215,20 +217,59 @@ docs/
 9. 文書ごとの移行方針
 10. 検証計画
 11. rollback方針
-12. 推奨するIssue本文。次を含める。
-    - 背景
-    - 目的
-    - 対象範囲
-    - 対象外
-    - 移行台帳へのリンクまたは表
-    - 受け入れ条件
-    - 検証方法
-    - 文書影響
-    - Decision Record要否
-    - 実装開始条件
+12. 共通Issue Form互換の推奨Issue。titleは`[Change]: <対象と成果>`とし、本文は次の見出しを表記も含めて一度ずつ、この順で使用する。
+
+    ```markdown
+    ### 変更区分
+
+    Documentation
+
+    ### 解決したい問題
+
+    <観測した問題、影響、なぜ今扱うか。空欄やplaceholderは禁止>
+
+    ### 期待する成果
+
+    <完了後に利用者または運用者が得る検証可能な状態。空欄やplaceholderは禁止>
+
+    ### 根拠・関連情報（任意）
+
+    #### 観測した事実
+    #### 現行文書との関係
+    #### 移行台帳
+    #### 関連Issue・Pull Request
+
+    ### 制約・対象範囲・補足（任意）
+
+    #### 対象範囲
+    #### 対象外
+    #### 受け入れ条件
+    #### 検証方法
+    #### 文書影響
+    #### Decision Record
+    #### 依存関係・重複候補
+    #### 実装開始条件
+
+    ### 確認
+
+    - [x] secret、個人情報、private URL、raw logを記載していません。
+    - [x] このIssueの作成だけでは実装開始を承認したことにならないと理解しています。
+    ```
+
+    `根拠・関連情報（任意）`と`制約・対象範囲・補足（任意）`はIssue Form上は任意だが、文書移行Issueでは上記の小見出しと調査済み内容を省略しない。
 13. 人間に必要な判断。ない場合は `None`
 
 `AWAITING_MIGRATION_APPROVAL` でも実装を開始しない。人間が移行台帳とIssue範囲を確認し、Issue番号と明示的な承認を与えるまで停止する。
+
+PLANを報告した後の別の指示で、人間がIssueの自動起票を明示的に依頼した場合に限り、次を行う。
+
+1. 起票直前にremoteの重複Issueを再確認する。
+2. 推奨Issue本文が上記6見出しを順番どおり一度ずつ持つことを検査する。
+3. `変更区分`が`Documentation`、`解決したい問題`と`期待する成果`が入力済み、2つの確認checkboxがcheckedであることを検査する。
+4. `gh issue create --repo <TARGET_REPOSITORY> --title <title> --body-file -`等、本文をshell引数へ展開しない方法でIssueを一件だけ作成する。
+5. 作成したIssueをGitHubから再取得し、title、本文、URLを検証して報告する。
+
+この自動起票はPLAN本体には含めず、Issue作成だけで`HUMAN_APPROVAL: approved`へ変更しない。実装承認は、作成したIssue番号と人間の明示的な承認を別に必要とする。
 
 ## STAGE: IMPLEMENT
 
