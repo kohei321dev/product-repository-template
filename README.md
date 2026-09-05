@@ -47,4 +47,6 @@ secret、token、password、接続文字列、private URL、個人情報、raw p
 
 ## Existing repository migration
 
-既存リポジトリ内に散在する文書をこの標準構成へ移す場合は、[`prompts/repository-docs-migration.md`](prompts/repository-docs-migration.md)を使用します。最初にread-onlyの`PLAN`を実行し、人間が移行台帳とIssueを承認した後にだけ`IMPLEMENT`へ進みます。
+既存リポジトリ内に散在する文書をこの標準構成へ移す場合は、最初に[人間向けの移行手順](prompts/README.md)を確認し、[AIエージェント向け移行プロンプト](prompts/repository-docs-migration.md)を使用します。
+
+既存リポジトリをTemplate repositoryで作り直したり、テンプレートの内容で上書きしたりしません。対象リポジトリでread-onlyの`PLAN`を実行し、人間が移行台帳とIssueを承認した後にだけ`IMPLEMENT`へ進み、文書だけのPull Requestとして移行します。
